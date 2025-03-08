@@ -4,7 +4,7 @@ import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 
 // Define color palette options
-const getDesignTokens = (mode: PaletteMode) => ({
+export const getDesignTokens = (mode: PaletteMode) => ({
 palette: {
     mode,
     primary: {
@@ -94,7 +94,7 @@ components: {
 });
 
 // Create the theme instance
-let theme = createTheme(getDesignTokens('light'));
+let theme = createTheme(getDesignTokens('dark'));
 
 // Apply responsive font sizes
 theme = responsiveFontSizes(theme);

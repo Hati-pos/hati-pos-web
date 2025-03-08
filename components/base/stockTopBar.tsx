@@ -9,19 +9,13 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useTheme }  from '@mui/material/styles';
-
+import { useTheme } from '../../theme/ThemeProvider';
 
 export default function StockTopBar() {
-  const theme = useTheme();
-  const [mode, setMode] = React.useState(theme.palette.mode);
+  const { mode, toggleTheme } = useTheme();
 
   const toggleMode = () => {
-    const newMode = mode === 'light' ? 'dark' : 'light';
-    setMode(newMode);
-    // Here you would typically update the theme context or store the preference
-    // For example, if using a theme context provider:
-    // updateTheme({ ...theme, palette: { ...theme.palette, mode: newMode } });
+    toggleTheme();
   };
 
   return (
@@ -41,8 +35,8 @@ export default function StockTopBar() {
             News
           </Typography>
           {mode} mode
-          <IconButton 
-            sx={{ ml: 1 }} 
+          <IconButton
+            sx={{ ml: 1 }}
             color="inherit"
             onClick={toggleMode}
           >
