@@ -3,7 +3,7 @@
 import React, { createContext, useState, useMemo, useContext } from 'react';
 import { ThemeProvider as MuiThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { PaletteMode, CssBaseline } from '@mui/material';
-import { getDesignTokens } from './theme';
+import { getDesignTokens } from '@/theme/theme';
 
 // Define type for theme context
 type ThemeContextType = {
@@ -36,9 +36,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     // Create theme with current mode
     const theme = useMemo(() => {
-        let newTheme = createTheme(getDesignTokens(mode));
-        // Apply responsive font sizes
-        newTheme = responsiveFontSizes(newTheme);
+        const newTheme = createTheme(getDesignTokens(mode));
         return newTheme;
     }, [mode]);
 

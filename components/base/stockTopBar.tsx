@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useTheme } from '../../theme/ThemeProvider';
+import { useTheme } from '@/theme/ThemeProvider';
 
 export default function StockTopBar() {
   const { mode, toggleTheme } = useTheme();
@@ -20,7 +20,7 @@ export default function StockTopBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ borderRadius: "20px" }} >
+      <AppBar position="static" sx={{ borderRadius: "20px", margin: 2 }} >
         <Toolbar>
           <IconButton
             size="large"

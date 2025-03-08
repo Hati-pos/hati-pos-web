@@ -2,7 +2,7 @@
 
 import type { Metadata } from "next";
 import { Kanit } from 'next/font/google'
-import { ThemeProvider } from '../theme/ThemeProvider';
+import { ThemeProvider } from '@/theme/ThemeProvider';
 
 const kanit = Kanit({
   weight: ['300', '400', '500', '600', '700'],
