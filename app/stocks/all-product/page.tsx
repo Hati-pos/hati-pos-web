@@ -1,35 +1,24 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Box, Grid, Typography, Container } from '@mui/material';
-import WidgetsTwoToneIcon from '@mui/icons-material/WidgetsTwoTone';
 import FilterCard from '@/components/base/FilterCard';
 import SortableCard from '@/components/base/SortableCard';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import useDraggableCategories from '@/lib/hooks/useDraggableCategories';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import WidgetsTwoToneIcon from '@mui/icons-material/WidgetsTwoTone';
+import { Box, Container, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 import {
-  DndContext,
   closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-  DragStartEvent,
+  DndContext,
   DragOverlay,
-  DragMoveEvent
 } from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  horizontalListSortingStrategy,
-} from '@dnd-kit/sortable';
+import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'; // Updated import
 
 // Mock data for filter categories
-let initialFilterCategories = [
+const initialFilterCategories = [
   {
     id: "1",
     name: 'All Products',
@@ -59,20 +48,17 @@ let initialFilterCategories = [
 
 
 export default function Stocks() {
-  const [categories, setCategories] = useState(initialFilterCategories);
   const [selectedCategory, setSelectedCategory] = useState("1");
-  const [activeId, setActiveId] = useState<string | null>(null);
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
+  const {
+    categories,
+    activeId,
+    sensors,
+    handleDragStart,
+    handleDragEnd
+  } = useDraggableCategories({
+    initialCategories: initialFilterCategories
+  });
 
   useEffect(() => {
     console.log("Categories updated:", categories);
@@ -81,46 +67,6 @@ export default function Stocks() {
   const handleCategorySelect = (categoryId: string) => {
     console.log("Category selected:", categoryId);
     setSelectedCategory(categoryId);
-  };
-
-  const handleDragStart = (event: DragStartEvent) => {
-    const { active } = event;
-    console.log(`Drag start:`, active);
-    console.log(`Active ID:`, active.id, `Type:`, typeof active.id);
-    setActiveId(active.id.toString());
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    console.log(`Drag end:`, active, over);
-    console.log(`Active ID:`, active.id, `Type:`, typeof active.id);
-    console.log(`Over ID:`, over?.id, `Type:`, over ? typeof over.id : 'null');
-
-    if (over && active.id !== over.id) {
-      setCategories((items) => {
-        const activeId = active.id.toString();
-        const overId = over.id.toString();
-
-        const oldIndex = items.findIndex((item) => item.id === activeId);
-        const newIndex = items.findIndex((item) => item.id === overId);
-
-        console.log(`Moving from index ${oldIndex} to ${newIndex}`);
-        console.log(`Active item:`, items[oldIndex]);
-        console.log(`Target item:`, items[newIndex]);
-
-        if (oldIndex === -1 || newIndex === -1) {
-          console.error(`Could not find items with IDs: active=${activeId}, over=${overId}`);
-          console.log(`Available IDs:`, items.map(item => `${item.id} (${typeof item.id})`));
-          return items;
-        }
-
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    } else {
-      console.log("No valid drop target or same position");
-    }
-
-    setActiveId(null);
   };
 
   const getActiveCategory = () => {
@@ -141,18 +87,18 @@ export default function Stocks() {
         >
           <SortableContext
             items={categories.map(cat => cat.id)}
-            // strategy={horizontalListSortingStrategy}
+            strategy={horizontalListSortingStrategy}
           >
             <Grid container spacing={3} sx={{ mb: 4 }}>
               {categories.map((category) => (
                 <Grid item xs={12} sm={6} md={3} key={category.id}>
                   <SortableCard
-                    id={category.id}
+                    id={category.id.toString()}
                     name={category.name}
-                    count={category.count}
+                    count={category.count || 0}
                     icon={category.icon}
                     selected={selectedCategory === category.id}
-                    onClick={() => handleCategorySelect(category.id)}
+                    onClick={() => handleCategorySelect(category.id.toString())}
                   />
                 </Grid>
               ))}
@@ -162,7 +108,7 @@ export default function Stocks() {
           <DragOverlay>
             {activeId ? (
               <FilterCard
-                id={activeId}
+                id={activeId.toString()}
                 name={getActiveCategory()?.name || ''}
                 count={getActiveCategory()?.count || 0}
                 icon={getActiveCategory()?.icon}

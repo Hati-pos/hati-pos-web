@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import { Box, Card, CardContent, SxProps, Theme, Typography } from '@mui/material';
 import React from 'react';
-import { Card, CardContent, Typography, Box, SxProps, Theme } from '@mui/material';
 
 interface FilterCardProps {
   icon: React.ReactNode;
