@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Card, CardContent, Typography, Box, SxProps, Theme } from '@mui/material';
-import Icon from '@mui/material/Icon';
 
 interface FilterCardProps {
   icon: React.ReactNode;
@@ -11,6 +10,11 @@ interface FilterCardProps {
   selected?: boolean;
   onClick?: () => void;
   sx?: SxProps<Theme>;
+  id?: string;
+  isDragging?: boolean;
+  setNodeRef?: (element: HTMLElement | null) => void;
+  listeners?: any;
+  attributes?: any;
 }
 
 const FilterCard: React.FC<FilterCardProps> = ({
@@ -20,9 +24,14 @@ const FilterCard: React.FC<FilterCardProps> = ({
   selected = false,
   onClick,
   sx = {},
+  isDragging = false,
+  setNodeRef,
+  listeners,
+  attributes,
 }) => {
   return (
     <Card
+      ref={setNodeRef}
       sx={{
         cursor: 'pointer',
         transition: 'all 0.2s ease-in-out',
@@ -34,9 +43,12 @@ const FilterCard: React.FC<FilterCardProps> = ({
           transform: 'translateY(-4px)',
           boxShadow: 3,
         },
+        opacity: isDragging ? 0.6 : 1,
         ...sx,
       }}
       onClick={onClick}
+      {...attributes}
+      {...listeners}
     >
       <CardContent>
         <Box display="flex" flexDirection="column" alignItems="left" gap={1}>
