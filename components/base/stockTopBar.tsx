@@ -19,8 +19,21 @@ export default function StockTopBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ borderRadius: "20px", margin: 2 }} >
+    <Box sx={{ 
+      flexGrow: 1,
+      display: 'flex',
+      justifyContent: 'center',
+      px: 2
+    }}>
+      <AppBar 
+        position="static" 
+        sx={{ 
+          borderRadius: "20px", 
+          margin: 2,
+          width: '100%',
+          maxWidth: '1200px'
+        }} 
+      >
         <Toolbar>
           <IconButton
             size="large"
