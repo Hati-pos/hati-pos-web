@@ -40,6 +40,10 @@ const FilterCard: React.FC<FilterCardProps> = ({
         boxShadow: selected ? 5 : 1,
         border: selected ? '2px solid' : 'none',
         borderColor: 'primary.main',
+        minWidth: 150,
+        maxWidth: 200,
+        minHeight: 70,
+        maxHeight: 120,
         '&:hover': {
           transform: 'translateY(-4px)',
           boxShadow: 3,
@@ -58,7 +62,6 @@ const FilterCard: React.FC<FilterCardProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: selected ? 'primary.light' : 'background.default',
               borderRadius: '50%',
               width: 15,
               height: 15,
@@ -67,7 +70,7 @@ const FilterCard: React.FC<FilterCardProps> = ({
           >
             {icon}
           </Box>
-          <Typography variant="h6" component="div" align="left">
+          <Typography variant="body1" component="div" align="left">
             {name}
           </Typography>
           <Typography variant="body2" color="text.secondary" align="left">
