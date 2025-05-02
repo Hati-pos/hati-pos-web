@@ -4,12 +4,14 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import DragHandleRoundedIcon from '@mui/icons-material/DragHandleRounded';
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useTheme } from '@/theme/ThemeProvider';
+import dayjs from 'dayjs';
+dayjs().format()
 
 export default function StockTopBar() {
   const { mode, toggleTheme } = useTheme();
@@ -19,22 +21,21 @@ export default function StockTopBar() {
   };
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       flexGrow: 1,
       display: 'flex',
       justifyContent: 'center',
-      px: 2
+      width: '100%',
+      padding: '10px'
     }}>
-      <AppBar 
-        position="static" 
-        sx={{ 
-          borderRadius: "20px", 
-          margin: 2,
-          width: '100%',
-          maxWidth: '1200px'
-        }} 
+      <AppBar
+        position="static"
+        sx={{
+          borderRadius: "20px",
+          width: '100%'
+        }}
       >
-        <Toolbar>
+        <Toolbar style={{ flexGrow: 1 }}>
           <IconButton
             size="large"
             edge="start"
@@ -42,18 +43,28 @@ export default function StockTopBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <DragHandleRoundedIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          {mode} mode
+          <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }} >
+            <DateRangeOutlinedIcon sx={{ fontSize: '18px' }} />
+            <Box
+              component="span"
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                ml: 1,
+                fontSize: '14px'
+              }}
+            >
+              {dayjs().format('ddd , DD MMM YYYY')}
+            </Box>
+          </div>
           <IconButton
             sx={{ ml: 1 }}
             color="inherit"
             onClick={toggleMode}
           >
-            {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            {mode === 'dark' ? <Brightness4Icon /> : <Brightness7Icon />}
           </IconButton>
         </Toolbar>
       </AppBar>
