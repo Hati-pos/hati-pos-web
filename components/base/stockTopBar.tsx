@@ -26,6 +26,7 @@ export default function StockTopBar() {
       display: 'flex',
       justifyContent: 'center',
       width: '100%',
+      height: "100px",
       padding: '10px'
     }}>
       <AppBar

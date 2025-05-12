@@ -134,7 +134,7 @@ const mockProducts = [
   },
 ];
 
-export default function Stocks() {
+export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("1");
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [filteredProducts, setFilteredProducts] = useState(mockProducts);
@@ -184,8 +184,8 @@ export default function Stocks() {
   }, []);
 
   return (
-    <Box sx={{ 
-      p: { xs: 1, sm: 2, md: 3 }, 
+    <Box sx={{
+      p: { xs: 1, sm: 2, md: 3 },
       bgcolor: 'background.default',
       minHeight: '100vh'
     }}>
@@ -233,10 +233,10 @@ export default function Stocks() {
 
         {/* Products Grid Section */}
         <Box sx={{ mt: { xs: 3, sm: 4 } }}>
-          <Typography 
-            variant="h5" 
-            component="h2" 
-            sx={{ 
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{
               mb: { xs: 2, sm: 3 },
               fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
             }}
@@ -247,8 +247,8 @@ export default function Stocks() {
             </Typography>
           </Typography>
 
-          <Grid 
-            container 
+          <Grid
+            container
             spacing={{ xs: 2, sm: 2, md: 3 }}
             sx={{
               '& .MuiGrid-item': {
