@@ -1,5 +1,6 @@
 import OrderSummary from "@/components/base/OrderSummary";
 import StockTopBar from "@/components/base/StockTopBar";
+import { Box } from '@mui/material';
 
 export default function StocksLayout({
   children,
@@ -7,7 +8,10 @@ export default function StocksLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <Box sx={{ 
+      minHeight: '100vh',
+      bgcolor: 'background.default'
+    }}>
       <div className="grid grid-cols-3">
         <div className="col-span-2">
           <StockTopBar />
@@ -16,9 +20,8 @@ export default function StocksLayout({
         <div>
           <OrderSummary />
         </div>
-
       </div>
-    </div>
+    </Box>
   );
 }
 
